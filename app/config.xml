@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <database>
+        <dbtype>mysql</dbtype>
+        <dbhost>localhost</dbhost>
+        <dbname>brainblitz</dbname>
+        <dbuser>root</dbuser>
+        <dbpass></dbpass>
+    </database>
+</config>

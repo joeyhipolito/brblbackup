@@ -1,0 +1,47 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+
+RewriteRule ^(.+)/$ /bb/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+
+#RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+RewriteRule ^(.+)$ /bb/index.php?url=$1 [QSA,L]
+
+</IfModule>
+
+# BEGIN EXPIRES
+<IfModule mod_expires.c>
+ExpiresActive On
+</IfModule>
+# END EXPIRES
+
+<IfModule mod_headers.c>
+   <FilesMatch "\.(bmp|css|flv|gif|ico|jpg|jpeg|js|pdf|png|svg|swf|tif|tiff|ttf|woff|eof)$">
+        ExpiresDefault "access plus 1 week"
+        Header set Last-Modified "Wed, 06 Mar 2013 00:00:00 GMT"
+    </FilesMatch>
+    <FilesMatch "\.(js|css|xml|gz)$">
+        Header append Vary: Accept-Encoding
+    </FilesMatch>
+</IfModule>
+
+
+<FilesMatch ".(js|css|html|htm|php|xml)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+<IfModule mod_deflate.c>
+    #The following line is enough for .js and .css
+    AddOutputFilter DEFLATE js css text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/php
+
+   #The following lines are to avoid bugs with some browsers
+     BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+AddDefaultCharset UTF-8
